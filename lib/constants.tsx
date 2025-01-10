@@ -1,37 +1,36 @@
 import {
-    LayoutDashboard,  // Icon for the Dashboard
-    Shapes,  // Icon for Collections
-    ShoppingBag,  // Icon for Orders
-    Tag, // Icon for Products
-    UsersRound, // Icon for Customers
+    LayoutDashboard,
+    Shapes,
+    ShoppingBag,
+    Tag,
+    UsersRound,
   } from "lucide-react";
   
-  export const navLinks = [  // List of navigation links
-
+  export const navLinks = [
     {
-      url: "/", // Link to the Dashboard page
-      icon: <LayoutDashboard />, // Dashboard icon
-      label: "Dashboard", // Label for the Dashboard link
+      url: "/",
+      icon: <LayoutDashboard />,
+      label: "Dashboard",
     },
     {
-      url: "/collections",  // Link to the Collections page
-      icon: <Shapes />, // Collections icon
-      label: "Collections", // Label for the Collections link
+      url: "/collections",
+      icon: <Shapes />,
+      label: "Collections",
     },
     {
-      url: "/products", // Link to the Products page
-      icon: <Tag />, // Products icon
-      label: "Products", // Label for the Products link
+      url: "/products",
+      icon: <Tag />,
+      label: "Products",
     },
     {
-      url: "/orders", // Link to the Orders page
-      icon: <ShoppingBag />, // Orders icon
-      label: "Orders", // Label for the Orders link
+      url: "/orders",
+      icon: <ShoppingBag />,
+      label: "Orders",
     },
     {
-      url: "/customers", // Link to the Customers page
-      icon: <UsersRound />, // Customers icon
-      label: "Customers", // Label for the Customers link
+      url: "/customers",
+      icon: <UsersRound />,
+      label: "Customers",
     },
   ];
   

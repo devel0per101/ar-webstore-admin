@@ -1,9 +1,9 @@
-import CollectionForm from "@/components/collections/CollectionForm"     // Imports the form to create a new collection.
+import CollectionForm from "@/components/collections/CollectionForm"
 
-const CreateCollection = () => {    // Creates a page to show the collection form.
+const CreateCollection = () => {
   return (
-    <CollectionForm />  // Shows the form to create a new collection.
+    <CollectionForm />
   )
 }
 
-export default CreateCollection    // Makes this page available for use in other parts of the app.
+export default CreateCollection

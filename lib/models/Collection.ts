@@ -1,32 +1,32 @@
 import mongoose from "mongoose";
     
-const collectionSchema = new mongoose.Schema({  // Defines the schema for the "Collection" model
+const collectionSchema = new mongoose.Schema({
     title: {
-       type: String, // Data type is a string
-       required: true,  // Title is a required field
-       unique: true,  // Title must be unique
+       type: String,
+       required: true,
+       unique: true, 
     },
-    description: String, // Description is optional and a string
+    description: String,
     image: {
-       type: String, // Image URL is a string
-       required: true, // Image URL is a string
+       type: String,
+       required: true,
     },
     products: [
         {
-            type: mongoose.Schema.Types.ObjectId, // Refers to the "Product" model
-            ref: "Product",  // References the "Product" model
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product",
         }
     ],
     createdAt: {
-        type: Date, // Stores the creation date
-        default: Date.now, // Sets default to the current date
+        type: Date,
+        default: Date.now,
     },
     updatedAt: {
-        type: Date, // Stores the last updated date
-        default: Date.now, // Sets default to the current date
+        type: Date,
+        default: Date.now,
     }
 }) 
 
-const Collection = mongoose.models.Collection || mongoose.model("Collection", collectionSchema); // Creates or uses the existing "Collection" model
+const Collection = mongoose.models.Collection || mongoose.model("Collection", collectionSchema);
 
-export default Collection; // Exports the Collection model
+export default Collection;

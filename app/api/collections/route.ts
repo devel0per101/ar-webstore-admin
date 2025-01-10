@@ -1,57 +1,57 @@
-import { connectToDB } from "@/lib/mongoDB";    // Imports the function to connect to the MongoDB database.
-import { NextRequest, NextResponse } from "next/server";   // Imports Next.js functions for handling HTTP requests and responses.
+import { connectToDB } from "@/lib/mongoDB";
+import { NextRequest, NextResponse } from "next/server";
  
-import Collection from "@/lib/models/Collection";  // Imports the Collection model to interact with the collections in the database.
-import { auth } from "@clerk/nextjs/server";   // Imports Clerk's auth function to check if the user is logged in.
+import Collection from "@/lib/models/Collection";
+import { auth } from "@clerk/nextjs/server";
 
-export const POST = async (req: NextRequest) => {     // This handles the POST request to create a new collection.
+export const POST = async (req: NextRequest) => {
     try {
-        const { userId } = auth()           // Gets the user ID to check if the user is authenticated.
+        const { userId } = auth()
 
         if(!userId) {
-            return new NextResponse("Unathorized", { status:403 })  // If user is not logged in, return an "Unauthorized" response.
+            return new NextResponse("Unathorized", { status:403 })
         }
 
-        await connectToDB() // Connects to the database.
+        await connectToDB()
 
-        const { title, description, image } = await req.json()   // Extracts title, description, and image from the incoming request.
+        const { title, description, image } = await req.json()
         
-        const existingCollection = await Collection.findOne({ title }) // Checks if a collection with the same title already exists.
+        const existingCollection = await Collection.findOne({ title })
 
-        if (existingCollection) {  // If the collection exists, return a "Collection already exists" response.
-           return new NextResponse("Collection already exists", { status:400 })  
+        if (existingCollection) {
+           return new NextResponse("Collection already exists", { status:400 })
         }
 
-        if (!title || !image) {    // If title or image is missing, return an error.
+        if (!title || !image) {
             return new NextResponse("Title and image are required", { status:400 })
         }
 
-        const newCollection = await Collection.create({  // Creates a new collection with the provided details.
+        const newCollection = await Collection.create({
             title,
             description,
             image,
         })
 
-        await newCollection.save()  // Saves the new collection to the database.
+        await newCollection.save()
 
-        return NextResponse.json(newCollection, { status:200 })   // Returns the new collection as a response.
+        return NextResponse.json(newCollection, { status:200 })
     } catch (err) {
-        console.log("[collections_POST]", err)  // Logs any errors that occur during the POST request.
-        return new NextResponse("Internal Server Error", { status:500 }) // Returns a 500 error if something goes wrong.
+        console.log("[collections_POST]", err)
+        return new NextResponse("Internal Server Error", { status:500 })
     }
 }
 
-export const GET = async (req: NextRequest) => { // This handles the GET request to retrieve all collections.
+export const GET = async (req: NextRequest) => {
     try {
-      await connectToDB() // Connects to the database.
+      await connectToDB()
   
-      const collections = await Collection.find().sort({ createdAt: "desc" }) // Retrieves all collections, sorted by creation date in descending order.
+      const collections = await Collection.find().sort({ createdAt: "desc" })
   
-      return NextResponse.json(collections, { status: 200 }) // Returns the collections as a JSON response.
+      return NextResponse.json(collections, { status: 200 })
     } catch (err) {
-      console.log("[collections_GET]", err)        // Logs any errors that occur during the GET request.
-      return new NextResponse("Internal Server Error", { status: 500 })        // Returns a 500 error if something goes wrong.
+      console.log("[collections_GET]", err)
+      return new NextResponse("Internal Server Error", { status: 500 })
     }
   }
   
-  export const dynamic = "force-dynamic";  // Tells Next.js to always generate a dynamic response for this page.
+  export const dynamic = "force-dynamic"; 
