@@ -20,10 +20,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import ImageUpload from "../custom ui/ImageUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import MultiText from "../custom ui/MultiText";
+import MultiSelect from "../custom ui/MultiSelect";
 
 const formSchema = z.object({
     title: z.string().min(2).max(20),
@@ -46,6 +47,26 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
+    const [collections, setCollections] = useState<CollectionType[]>([])
+    
+    const getCollections = async () => {
+        try{
+            setLoading(true);
+            const res = await fetch("/api/collections", {
+                method: "GET",
+            });
+            const data =  await res.json();
+            setCollections(data);
+            setLoading(false);
+        } catch(err) {
+            console.log("[collections_GET]",err);
+            toast.error("Something went wrong! Please try again.");
+        }
+    }
+
+    useEffect(() => {
+        getCollections();
+    }, []);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -195,13 +216,36 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                 <FormItem>
                                     <FormLabel>Tags</FormLabel>
                                     <FormControl>
-                                        <MultiText 
+                                        <MultiText
                                             placeholder="Tags"
                                             value={field.value}
-                                            onChange={(tag) => field.onChange([ ...field.value, tag ])}
-                                            onRemove={(tagToRemove) => 
+                                            onChange={(tag) => field.onChange([...field.value, tag])}
+                                            onRemove={(tagToRemove) =>
                                                 field.onChange([
-                                                ...field.value.filter((item) => item !== tagToRemove),
+                                                    ...field.value.filter((tag) => tag !== tagToRemove),
+                                                ])
+                                            }
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="collections"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Collections</FormLabel>
+                                    <FormControl>
+                                        <MultiSelect
+                                            placeholder="Collections"
+                                            collections={collections}
+                                            value={field.value}
+                                            onChange={(_id) => field.onChange([...field.value, _id])}
+                                            onRemove={(idToRemove) =>
+                                                field.onChange([
+                                                    ...field.value.filter((collectionId) => collectionId !== idToRemove),
                                                 ])
                                             }
                                         />
