@@ -23,6 +23,7 @@ import ImageUpload from "../custom ui/ImageUpload";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
+import MultiText from "../custom ui/MultiText";
 
 const formSchema = z.object({
     title: z.string().min(2).max(20),
@@ -35,7 +36,7 @@ const formSchema = z.object({
     colors: z.array(z.string()),
     price: z.coerce.number().min(0.1),
     expense: z.coerce.number().min(0.1)
-})
+});
 
 interface ProductFormProps {
     initialData?: ProductType | null; //Must have "?" to make it optional 
@@ -152,7 +153,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                             name="price"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Price</FormLabel>
+                                    <FormLabel>Price(₹)</FormLabel>
                                     <FormControl>
                                         <Input type="number" placeholder="Price" {...field} onKeyDown={handleKeyPress} />
                                     </FormControl>
@@ -165,7 +166,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                             name="expense"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Expense</FormLabel>
+                                    <FormLabel>Expense(₹)</FormLabel>
                                     <FormControl>
                                         <Input type="number" placeholder="Expense" {...field} onKeyDown={handleKeyPress} />
                                     </FormControl>
@@ -173,6 +174,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             control={form.control}
                             name="category"
@@ -186,7 +188,30 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                            control={form.control}
+                            name="tags"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Tags</FormLabel>
+                                    <FormControl>
+                                        <MultiText 
+                                            placeholder="Tags"
+                                            value={field.value}
+                                            onChange={(tag) => field.onChange([ ...field.value, tag ])}
+                                            onRemove={(tagToRemove) => 
+                                                field.onChange([
+                                                ...field.value.filter((item) => item !== tagToRemove),
+                                                ])
+                                            }
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </div>
+
                     <div className="flex gap-10">
                         <Button type="submit" className="bg-blue-1 text-white">Submit</Button>
                         <Button type="button" onClick={() => router.push("/collections")} className="bg-blue-1 text-white">Discard</Button>
