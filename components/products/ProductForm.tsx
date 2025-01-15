@@ -134,7 +134,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                 <FormControl>
                                     <Input placeholder="Title" {...field} onKeyDown={handleKeyPress} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-red-1"/>
                             </FormItem>
                         )}
                     />
@@ -147,7 +147,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                 <FormControl>
                                     <Textarea placeholder="Description" {...field} rows={5} onKeyDown={handleKeyPress} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-red-1"/>
                             </FormItem>
                         )}
                     />
@@ -164,7 +164,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                         onRemove={(url) => field.onChange([...field.value.filter((image) => image !== url)])}
                                     />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-red-1"/>
                             </FormItem>
                         )}
                     />
@@ -178,7 +178,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                     <FormControl>
                                         <Input type="number" placeholder="Price" {...field} onKeyDown={handleKeyPress} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -191,7 +191,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                     <FormControl>
                                         <Input type="number" placeholder="Expense" {...field} onKeyDown={handleKeyPress} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -205,7 +205,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                     <FormControl>
                                         <Input placeholder="Category" {...field} onKeyDown={handleKeyPress} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -227,7 +227,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                             }
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -250,7 +250,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                             }
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -272,7 +272,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                             }
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -294,7 +294,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                                             }
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-red-1"/>
                                 </FormItem>
                             )}
                         />
@@ -302,7 +302,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
                     <div className="flex gap-10">
                         <Button type="submit" className="bg-blue-1 text-white">Submit</Button>
-                        <Button type="button" onClick={() => router.push("/collections")} className="bg-blue-1 text-white">Discard</Button>
+                        <Button type="button" onClick={() => router.push("/products")} className="bg-blue-1 text-white">Discard</Button>
                     </div>
                 </form>
             </Form>
