@@ -36,6 +36,8 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ placeholder, collections, val
         selected = value.map((id) => collections.find((collection) => collection._id === id)) as CollectionType[]
     }
 
+    const selectables = collections.filter((collection) => !selected.includes(collection));
+
     return (
         <Command className="overflow-visible bg-white">
             <div className="flex gap-1 flex-wrap border rounded-md">
@@ -58,11 +60,15 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ placeholder, collections, val
             <div className="relative mt-2">
                 {open && (
                     <CommandGroup className="absolute w-full z-10 top-0 overflow-auto border rounded-md shadow-md">
-                        {collections.map((collection) => (
+                        {selectables.map((collection) => (
                             <CommandItem
                                 key={collection._id}
                                 onMouseDown={(e) => e.preventDefault()}
-                                onSelect={() => { onChange(collection._id) }}
+                                onSelect={() => { 
+                                    onChange(collection._id);
+                                    setInputValue("");
+                                 }}
+                                 className="hover:bg-grey-2 cursor-pointer"
                             >
                                 {collection.title}
                             </CommandItem>
